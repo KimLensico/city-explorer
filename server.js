@@ -51,7 +51,7 @@ function handleWeather(request, response) {
 }
 
 function Day(dayData) {
-  this.forcast = dayData.weather.description;
+  this.forecast = dayData.weather.description;
   this.time = dayData.datetime;
 }
 
