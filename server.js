@@ -38,10 +38,32 @@ app.listen(PORT, () => {
   console.log(`listening on ${PORT}`)
 });
 
+app.get('/weather', handleWeather);
+
+function handleWeather(request, response) {
+  // declare a variable named weather data that has its contents as the entire json file 
+  let weatherData = require('./data/weather.json');
+  // declaring a new array called days
+  const days = [];
+  // for each day in weatherData, we will create a new Object
+  weatherData.data.forEach(day => days.push(new Day(day)));
+  response.send(days);
+}
+
+function Day(dayData) {
+  this.forcast = dayData.weather.description;
+  this.time = dayData.datetime;
+}
+
 // FOR REFERENCE:
-// {
-//   "search_query": "seattle",
-//   "formatted_query": "Seattle, WA, USA",
-//   "latitude": "47.606210",
-//   "longitude": "-122.332071"
-// }
+// [
+//   {
+//     "forecast": "Partly cloudy until afternoon.",
+//     "time": "Mon Jan 01 2001"
+//   },
+//   {
+//     "forecast": "Mostly cloudy in the morning.",
+//     "time": "Tue Jan 02 2001"
+//   },
+//   ...
+// ]
